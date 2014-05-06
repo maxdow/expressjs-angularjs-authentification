@@ -89,8 +89,12 @@ app.get("/", function(req, res, next) {
   res.send("index.html");
 });
 
-app.get("/secure", auth, function(req, res, next) {
-    res.send({data:"je suis une donnée protégée"});
+app.get("/api/secure/data", auth, function(req, res, next) {
+    res.send({content:"je suis une donnée protégée"});
+});
+
+app.get("/api/data", function(req, res, next) {
+    res.send({content:"je suis une donnée publique"});
 });
 
 app.get("/logged", function(req, res) {

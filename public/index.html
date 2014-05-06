@@ -1,29 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="AuthApp">
 
 <head>
     <title>Mon application</title>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <form action="/login" method="post">
-        <div>
-            <label>Username:</label>
-            <input id="username " type="text" name="username" />
-        </div>
-        <div>
-            <label>Password:</label>
-            <input id="password" type="password" name="password" />
-        </div>
-        <div>
-            <input type="submit" />
-        </div>
-    </form>
-    <ul>
-    	<li>login :bob password: bob</li>
-    	<li>login :joe password: joe</li>
-    </ul>
+<!--     <form action="/login" method="post">
+    <div>
+        <label>Username:</label>
+        <input id="username " type="text" name="username" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input id="password" type="password" name="password" />
+    </div>
+    <div>
+        <input type="submit" />
+    </div>
+</form>
+<ul>
+    <li>login :bob password: bob</li>
+    <li>login :joe password: joe</li>
+</ul> -->
 
+
+<header ng-controller="HeaderCtrl">
+    <div class="login pull-right clearfix">
+    <div ng-hide="user.isLoggedIn">
+        User:<input type="text">
+        Pass:<input type="password">
+        <button>Submit</button>
+    </div>
+    <span ng-show="user.isLoggedIn">User Name</span>
+
+    </div>
+</header>
+
+<div ng-controller="MainCtrl" class="main">
+    <button ng-click="loadSecureData()">Load Secure Data</button>
+    <button ng-click="loadPublicData()">Load Public Data</button>
+
+    <div>{{data}}</div>
+</div>
+
+
+<script src="authentification/auth-services.js"></script>
+<script src="services.js"></script>
+<script src="header-controller.js"></script>
+<script src="app.js"></script>
 
 </body>
 
