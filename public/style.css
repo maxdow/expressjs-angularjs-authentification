@@ -37,3 +37,7 @@ header .pull-right {
 .main {
   padding: 10px;
 }
+
+.alert-txt {
+  color : #FF4136;
+}

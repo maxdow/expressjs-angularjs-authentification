@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<!--     <form action="/login" method="post">
+    <!--     <form action="/login" method="post">
     <div>
         <label>Username:</label>
         <input id="username " type="text" name="username" />
@@ -28,30 +28,40 @@
 </ul> -->
 
 
-<header ng-controller="HeaderCtrl">
-    <div class="login pull-right clearfix">
-    <div ng-hide="user.isLoggedIn">
-        User:<input type="text">
-        Pass:<input type="password">
-        <button>Submit</button>
-    </div>
-    <span ng-show="user.isLoggedIn">User Name</span>
-
-    </div>
-</header>
-
-<div ng-controller="MainCtrl" class="main">
-    <button ng-click="loadSecureData()">Load Secure Data</button>
-    <button ng-click="loadPublicData()">Load Public Data</button>
-
-    <div>{{data}}</div>
+    <header ng-controller="HeaderCtrl">
+        <div class="pull-right clearfix login">
+            <div ng-hide="userService.loginShowing">
+                <a ng-hide="user.isLoggedIn" ui-sref="login">Sign in</a>
+                <div ng-show="user.isLoggedIn ">
+                    <span>{{user.name}}</span>
+                    <button ng-click="logout()">Logout</button>
+                </div>
+            </div>
+            <div ui-view="login"></div>
+        </div>
+        <!--     <div class="login pull-right clearfix">
+<div ng-hide="user.isLoggedIn">
+    User:<input type="text">
+    Pass:<input type="password">
+    <button ng-click="login()">Login</button>
 </div>
+<span ng-show="user.isLoggedIn">User Name</span>
+<button ng-click="logout()">Logout</button>
+</div> -->
+    </header>
+
+    <div ng-controller="MainCtrl" class="main">
+        <button ng-click="loadSecureData()">Load Secure Data</button>
+        <button ng-click="loadPublicData()">Load Public Data</button>
+
+        <div>{{data}}</div>
+    </div>
 
 
-<script src="authentification/auth-services.js"></script>
-<script src="services.js"></script>
-<script src="header-controller.js"></script>
-<script src="app.js"></script>
+    <script src="authentification/auth-services.js"></script>
+    <script src="services.js"></script>
+    <script src="header-controller.js"></script>
+    <script src="app.js"></script>
 
 </body>
 

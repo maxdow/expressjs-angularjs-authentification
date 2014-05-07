@@ -1,9 +1,30 @@
 angular.module("AuthAppControllers",[])
+.controller("LoginCtrl",function($scope,UserService){
+
+    $scope.user = UserService.currentUser ;
+
+    $scope.login = function() {
+        UserService.login($scope.user)
+        .error(function(response){
+            $scope.errMsg = response;
+        })
+        .success(function(){
+            $scope.errMsg = "";
+        });
+    };
+
+
+})
 .controller("HeaderCtrl",function($scope,UserService){
 
-    $scope.user = {
-        isLoggedIn : UserService.isLoggedIn()
-    } ;
+    $scope.userService = UserService ;
+
+    $scope.user = UserService.currentUser;
+
+    $scope.logout = function() {
+        UserService.logout();
+    }
+
 
 })
 .controller("MainCtrl",function($scope,DataService){

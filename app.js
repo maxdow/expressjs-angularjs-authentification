@@ -20,7 +20,7 @@ app.use(bodyParser());
 app.use(methodOverride());
 
 // nécessaire pour l'utilisation des sessions. secret sert à signer le cookie
-app.use(session({ secret: "private" }));
+app.use(session({ secret: "private" , cookie: { maxAge: 20000 }}));
 
 // Initialisation de PassportJs ansi que du système de session
 app.use(passport.initialize());
@@ -85,9 +85,6 @@ var auth = function(req, res, next) {
     }
 };
 
-app.get("/", function(req, res, next) {
-  res.send("index.html");
-});
 
 app.get("/api/secure/data", auth, function(req, res, next) {
     res.send({content:"je suis une donnée protégée"});
@@ -110,7 +107,8 @@ app.post("/login", function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.end(user);
+      // send user
+      return res.end(JSON.stringify(user));
     });
   })(req, res, next);
 });
@@ -121,6 +119,12 @@ app.post("/logout", function(req, res) {
     req.logOut();
     res.send(200);
 });
+
+
+app.get("/*", function(req, res, next) {
+  res.sendfile("./public/index.html");
+});
+
 
 
 app.listen(3000);

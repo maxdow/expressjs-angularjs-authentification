@@ -1,0 +1,7 @@
+<div ng-hide="userIsLoggedIn">
+    <span class="alert-txt">{{errMsg}}</span>
+    User:
+    <input ng-model="user.name" type="text">Pass:
+    <input ng-model="user.pass" type="password">
+    <button ng-click="login()">Login</button>
+</div>
