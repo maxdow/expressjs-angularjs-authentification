@@ -28,7 +28,7 @@ config(function($stateProvider, $locationProvider, $urlRouterProvider,$httpProvi
         });
     $urlRouterProvider.otherwise("/");
 
-    $httpProvider.interceptors.push(function($q, $location, httpBuffer) {
+    $httpProvider.interceptors.push(function($q, $location, httpBufferService) {
 
         return {
 
@@ -38,7 +38,7 @@ config(function($stateProvider, $locationProvider, $urlRouterProvider,$httpProvi
                     var deferred = $q.defer();
                     $location.path("/login");
 
-                    httpBuffer.storeRequest({config:response.config,deferred:deferred});
+                    httpBufferService.storeRequest({config:response.config,deferred:deferred});
                 }
                 return deferred.promise;
             }

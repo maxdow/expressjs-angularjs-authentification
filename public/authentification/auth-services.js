@@ -10,7 +10,7 @@ angular.module("AuthServices", [])
             localStorage.removeItem(key);
         };
     })
-    .service("UserService", function($http, $location, SessionService,httpBuffer) {
+    .service("UserService", function($http, $location, SessionService, httpBufferService) {
 
         this.currentUser = {
             name: SessionService.getValue("session.name") || "",
@@ -28,7 +28,7 @@ angular.module("AuthServices", [])
                 _this.currentUser.isLoggedIn = true;
                 SessionService.setValue("session.name", response.username);
                 $location.path("/");
-                httpBuffer.retryLastRequest();
+                httpBufferService.retryLastRequest();
 
             });
         };
@@ -47,29 +47,27 @@ angular.module("AuthServices", [])
             this.loginShowing = state;
         };
     })
-    .factory("httpBuffer", function($injector) {
+    .factory("httpBufferService", function($injector) {
 
         var $http;
         var buffer = {};
 
-        function retryHttpRequest(config, deferred) {
-            console.log(buffer,config,deferred);
-          function successCallback(response) {
-            deferred.resolve(response);
-          }
-          function errorCallback(response) {
-            deferred.reject(response);
-          }
-          $http = $http || $injector.get("$http");
-          $http(config).then(successCallback, errorCallback);
-        }
 
         return {
-            storeRequest : function(request) {
-                buffer = request ;
+            storeRequest: function(request) {
+                buffer = request;
             },
-            retryLastRequest : function() {
-                retryHttpRequest(buffer.config,buffer.deferred);
+            retryLastRequest: function() {
+
+                function successCallback(response) {
+                    buffer.deferred.resolve(response);
+                }
+
+                function errorCallback(response) {
+                    buffer.deferred.reject(response);
+                }
+                $http = $http || $injector.get("$http");
+                $http(buffer.config).then(successCallback, errorCallback);
             }
         };
     });
