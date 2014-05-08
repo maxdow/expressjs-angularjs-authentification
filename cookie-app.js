@@ -10,6 +10,7 @@ app
 
 
 app.get("/",function (req, res, next) {
+  console.log(JSON.stringify(req.session));
   var n = req.session.views || 0;
   req.session.views = ++n;
   res.end(n + " vues");

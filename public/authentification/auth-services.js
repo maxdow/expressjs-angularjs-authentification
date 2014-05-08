@@ -28,6 +28,7 @@ angular.module("AuthServices", [])
                 _this.currentUser.isLoggedIn = true;
                 SessionService.setValue("session.name", response.username);
                 $location.path("/");
+                // or
                 httpBufferService.retryLastRequest();
 
             });

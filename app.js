@@ -20,7 +20,7 @@ app.use(bodyParser());
 app.use(methodOverride());
 
 // nécessaire pour l'utilisation des sessions. secret sert à signer le cookie
-app.use(session({ secret: "private" , cookie: { maxAge: 20000 }}));
+app.use(session({ secret: "private" , cookie: { maxAge: 30000 }}));
 
 // Initialisation de PassportJs ansi que du système de session
 app.use(passport.initialize());

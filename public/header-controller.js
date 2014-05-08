@@ -13,7 +13,6 @@ angular.module("AuthAppControllers",[])
         });
     };
 
-
 })
 .controller("HeaderCtrl",function($scope,UserService){
 
@@ -23,7 +22,7 @@ angular.module("AuthAppControllers",[])
 
     $scope.logout = function() {
         UserService.logout();
-    }
+    };
 
 
 })

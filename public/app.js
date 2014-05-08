@@ -4,27 +4,26 @@ angular.module("AuthApp", [
     "AuthAppControllers",
     "ui.router"
 ]).
-config(function($stateProvider, $locationProvider, $urlRouterProvider,$httpProvider) {
+config(function($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
 
     $stateProvider
         .state("Main", {
-          url: "/"
+            url: "/"
         })
         .state("login", {
             url: "/login",
-            onEnter: function(UserService){
+            onEnter: function(UserService) {
                 UserService.setLoginState(true);
             },
-            onExit: function(UserService){
+            onExit: function(UserService) {
                 UserService.setLoginState(false);
             },
             views: {
                 "login": {
-                    templateUrl:"authentification/login-template.html",
+                    templateUrl: "authentification/login-template.html",
                     controller: "LoginCtrl"
                 }
             }
-
         });
     $urlRouterProvider.otherwise("/");
 
@@ -33,12 +32,16 @@ config(function($stateProvider, $locationProvider, $urlRouterProvider,$httpProvi
         return {
 
             "responseError": function(response) {
+                var deferred = $q.defer();
+
                 if (response.status === 401) {
 
-                    var deferred = $q.defer();
                     $location.path("/login");
 
-                    httpBufferService.storeRequest({config:response.config,deferred:deferred});
+                    httpBufferService.storeRequest({
+                        config: response.config,
+                        deferred: deferred
+                    });
                 }
                 return deferred.promise;
             }
